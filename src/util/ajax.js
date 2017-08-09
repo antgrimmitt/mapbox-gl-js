@@ -63,6 +63,12 @@ exports.getJSON = function(requestParameters: RequestParameters, callback: Callb
         callback(new Error(xhr.statusText));
     };
     xhr.onload = function() {
+        /**
+         * fix if ajax returns responseText instead of response
+         */
+        if(xhr.responseText) {
+            xhr.response = xhr.responseText;
+        }
         if (xhr.status >= 200 && xhr.status < 300 && xhr.response) {
             let data;
             try {
